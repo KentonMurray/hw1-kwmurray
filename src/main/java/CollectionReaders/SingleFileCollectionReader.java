@@ -31,18 +31,18 @@ import org.apache.uima.util.ProgressImpl;
  * 
  * 
  */
-public class CollectionReader extends CollectionReader_ImplBase {
+public class SingleFileCollectionReader extends CollectionReader_ImplBase {
   /**
    * Name of configuration parameter that must be set to the path of a directory containing input
    * files.
    */
-  public static final String PARAM_INPUT = "sample.in";//"hw1.in";
+  public static final String PARAM_INPUT = "InputFile";//"sample.in";//"hw1.in";
 
   /**
    * Name of configuration parameter that contains the character encoding used by the input files.
    * If not specified, the default system encoding will be used.
    */
-  public static final String PARAM_ENCODING = "Encoding";
+  //public static final String PARAM_ENCODING = "Encoding";
 
   /**
    * Name of optional configuration parameter that contains the language of the documents in the
@@ -50,13 +50,6 @@ public class CollectionReader extends CollectionReader_ImplBase {
    */
   public static final String PARAM_LANGUAGE = "Language";
 
-  /**
-   * Name of optional configuration parameter that indicates including
-   * the subdirectories (recursively) of the current input directory.
-   */
-  //public static final String PARAM_SUBDIR = "BrowseSubdirectories";
-  
-  //private ArrayList<File> mFiles;
   
   private ArrayList<String> docsArray;
 
@@ -75,12 +68,7 @@ public class CollectionReader extends CollectionReader_ImplBase {
    */
   public void initialize() throws ResourceInitializationException {
     File collectionFile = new File(((String) getConfigParameterValue(PARAM_INPUT)).trim());
-    //mEncoding  = (String) getConfigParameterValue(PARAM_ENCODING);
     mLanguage  = (String) getConfigParameterValue(PARAM_LANGUAGE);
-    //mRecursive = (Boolean) getConfigParameterValue(PARAM_SUBDIR);
-    //if (null == mRecursive) { // could be null if not set, it is optional
-      //mRecursive = Boolean.FALSE;
-    //}
     mCurrentIndex = 0;
     mNumberOfLines = 0;
     
@@ -100,7 +88,6 @@ public class CollectionReader extends CollectionReader_ImplBase {
       while((doc = bReader.readLine()) != null) { 
         docsArray.add(doc);
         mNumberOfLines++;
-        System.out.println(doc);
       }
       fReader.close();
     } catch (FileNotFoundException e) {
@@ -114,24 +101,7 @@ public class CollectionReader extends CollectionReader_ImplBase {
     
   }
   
-  /**
-   * This method adds files in the directory passed in as a parameter to mFiles.
-   * If mRecursive is true, it will include all files in all
-   * subdirectories (recursively), as well. 
-   * 
-   * @param dir
-   */
-  //private void addFilesFromDir(File dir) {
-    //File[] files = dir.listFiles();
-    //for (int i = 0; i < files.length; i++) {
-      //if (!files[i].isDirectory()) {
-        //mFiles.add(files[i]);
-      //} else if (mRecursive) {
-        //addFilesFromDir(files[i]);
-      //}
-    //}
-  //}
-
+  
   /**
    * @see org.apache.uima.collection.CollectionReader#hasNext()
    */
@@ -156,15 +126,7 @@ public class CollectionReader extends CollectionReader_ImplBase {
     doc = docsArray.remove(0);
     jcas.setDocumentText(doc); //put Document in CAS
     
-    System.out.println(doc);
     
-    
-    // open input stream to file
-    //File file = (File) mFiles.get(mCurrentIndex++);
-    //String text = FileUtils.file2String(file, mEncoding);
-      // put document in CAS
-    //jcas.setDocumentText(text);
-
     // set language if it was explicitly specified as a configuration parameter
     if (mLanguage != null) {
       ((DocumentAnnotation) jcas.getDocumentAnnotationFs()).setLanguage(mLanguage);

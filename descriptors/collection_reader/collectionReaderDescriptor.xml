@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collectionReaderDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <implementationName>CollectionReaders.SingleFileCollectionReader</implementationName>
+  <processingResourceMetaData>
+    <name>singleFileCollectionReader</name>
+    <description> Reads a file which contains one document per line </description>
+    <version>1.0</version>
+    <vendor/>
+    <configurationParameters>
+    <configurationParameter>
+                <name>InputFile</name>
+                <description>File consisting of all the inputs</description>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>true</mandatory>
+            </configurationParameter>
+            <configurationParameter>
+                <name>Language</name>
+                <description>ISO language code for the documents</description>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>false</mandatory>
+            </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+        <nameValuePair>
+		        <name>InputFile</name>
+		        <value>
+		            <string>src/main/resources/data/sample.in</string>
+		        </value>
+		    </nameValuePair>
+        <nameValuePair>
+		        <name>Language</name>
+		        <value>
+		            <string>en</string>
+		        </value>
+		    </nameValuePair>
+    </configurationParameterSettings>
+    <typePriorities/>
+    <fsIndexCollection/>
+    
+    <!-- Type System of CASes returned by this Collection Reader -->
+
+        <typeSystemDescription>
+          <imports>
+            <import name="org.apache.uima.examples.SourceDocumentInformation"/>
+          </imports>
+        </typeSystemDescription>
+
+        <capabilities>
+          	<capability>
+          		<inputs/>
+          		<outputs>
+          			<type allAnnotatorFeatures="true">org.apache.uima.examples.SourceDocumentInformation</type>
+          		</outputs>
+          	</capability>
+        </capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>false</multipleDeploymentAllowed>
+			<outputsNewCASes>true</outputsNewCASes>
+		</operationalProperties>	
+    
+  </processingResourceMetaData>
+  <resourceManagerConfiguration/>
+</collectionReaderDescription>
