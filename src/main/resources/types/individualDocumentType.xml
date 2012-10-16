@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <name>individualDocumentType</name>
+  <description>Type System that is common across an entire document (single line of the input file)</description>
+  <version>1.0</version>
+  <vendor/>
+  <types>
+		<typeDescription>
+			<name>SentenceIdentifier</name>
+			<description>Unique Identifier for each sentence in the input file</description>
+			<supertypeName>uima.tcas.Annotation</supertypeName>
+			<features>
+				<featureDescription>
+					<name>SentenceID</name>
+					<description></description>
+					<rangeTypeName>uima.cas.String</rangeTypeName>
+				</featureDescription>
+			</features>
+		</typeDescription>
+	</types>
+</typeSystemDescription>
