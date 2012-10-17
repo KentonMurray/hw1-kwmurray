@@ -3,40 +3,11 @@
     <collectionReader>
         <collectionIterator>
             <descriptor>
-                <!-- <import location="../../workspace/hw1-kwmurray/descriptors/collection_reader/collectionReaderDescriptor.xml"/>   -->
-                <!-- <import location="../../../descriptors/collection_reader/collectionReaderDescriptor.xml"/> -->
                 <import location="./collection_reader/collectionReaderDescriptor.xml"/>
             </descriptor>
-            <!-- <configurationParameterSettings>
-                <nameValuePair>
-                    <name>InputFile</name>
-                    <value>
-                        <string>sample.in</string>
-                    </value>
-                </nameValuePair>
-                <nameValuePair>
-                    <name>Encoding</name>
-                    <value>
-                        <string>UTF-8</string>
-                    </value>
-                </nameValuePair>
-            </configurationParameterSettings> -->
         </collectionIterator>
     </collectionReader>
     <casProcessors casPoolSize="3" processingUnitThreadCount="1">
-        <!-- <casProcessor deployment="integrated" name="Aggregate TAE - Name Recognizer and Person Title Annotator">
-            <descriptor>
-                <import location="analysis_engine/NamesAndPersonTitles_TAE.xml"/>
-            </descriptor>
-            <deploymentParameters/>
-            <errorHandling>
-                <errorRateThreshold action="terminate" value="0/1000"/>
-                <maxConsecutiveRestarts action="terminate" value="30"/>
-                <timeout max="100000" default="-1"/>
-            </errorHandling>
-            <checkpoint batch="10000" time="1000ms"/>
-        </casProcessor> -->
-        <!-- <casProcessor deployment="integrated" name="Xmi Writer CAS Consumer"> -->
         <casProcessor deployment="integrated" name="Basic Analysis Engine">
             <descriptor>
                 <import location="ae/BasicAnalysisEngine.xml"/>
@@ -64,7 +35,6 @@
         <casProcessor deployment="integrated" name="Genes Consumed">
             <descriptor>
                 <import location="consumers/GeneseConsumed.xml" />
-                <!-- <import location="cas_consumer/XmiWriterCasConsumer.xml"/> -->
             </descriptor>
             <deploymentParameters/>
             <errorHandling>
@@ -73,14 +43,6 @@
                 <timeout max="100000" default="-1"/>
             </errorHandling>
             <checkpoint batch="10000" time="1000ms"/>
-            <!-- <configurationParameterSettings>
-                <nameValuePair>
-                    <name>OutputFile</name>
-                    <value>
-                        <string>/host/Users/Kenton/11791/apache-uima/examples/descriptors/output</string>
-                    </value>
-                </nameValuePair>
-            </configurationParameterSettings> -->
         </casProcessor>
     </casProcessors>
     <cpeConfig>

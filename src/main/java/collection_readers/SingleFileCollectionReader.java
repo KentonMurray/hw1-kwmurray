@@ -1,4 +1,4 @@
-package CollectionReaders;
+package collection_readers;
 
 
 import java.io.BufferedReader;

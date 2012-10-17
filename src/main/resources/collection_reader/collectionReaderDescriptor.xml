@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <collectionReaderDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <implementationName>CollectionReaders.SingleFileCollectionReader</implementationName>
+  <implementationName>collection_readers.SingleFileCollectionReader</implementationName>
   <processingResourceMetaData>
     <name>singleFileCollectionReader</name>
     <description>Reads a file which contains one document per line</description>
