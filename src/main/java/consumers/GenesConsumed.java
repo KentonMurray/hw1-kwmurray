@@ -33,16 +33,7 @@ public class GenesConsumed extends CasConsumer_ImplBase {
       throw new ResourceProcessException(e);
     }
 
-    //File outputDir = new File("data");
-    //File outFile = new File(/*outputDir,*/ "hw1-kwmurray" + ".out");
     File collectionFile = new File(((String) getConfigParameterValue(PARAM_OUTPUT)).trim());
-    //String modelFileName = "kwmurray";
-    //File collectionFile = new File("/host/Users/Kenton/11791/workspace/hw1-kwmurray/src/main/resources/data/sample2.out");
-    //System.out.println(jcas.toString());
-    //System.out.println("Kenton");
-    //System.out.println(jcas.getCas());
-    
-    //System.out.println(jcas.getDocumentText());
     
     BufferedWriter bufferedWriter = null;
 
