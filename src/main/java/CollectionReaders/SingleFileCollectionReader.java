@@ -1,5 +1,6 @@
 package CollectionReaders;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +21,8 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
 
+import types.IndividualSentenceIdentifier;
+
 /**
  * A simple collection reader that reads a single document from a command line parameter. It can be
  * configured with the following parameters:
@@ -28,10 +31,11 @@ import org.apache.uima.util.ProgressImpl;
  * <li><code>Encoding</code> (optional) - character encoding of the input files</li>
  * <li><code>Language</code> (optional) - language of the input documents</li>
  * </ul>
+ * @param <SentenceIdentifier>
  * 
  * 
  */
-public class SingleFileCollectionReader extends CollectionReader_ImplBase {
+public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionReader_ImplBase {
   /**
    * Name of configuration parameter that must be set to the path of a directory containing input
    * files.
@@ -67,7 +71,8 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
    * @see org.apache.uima.collection.CollectionReader_ImplBase#initialize()
    */
   public void initialize() throws ResourceInitializationException {
-    File collectionFile = new File(((String) getConfigParameterValue(PARAM_INPUT)).trim());
+    //TODO: FIX THIS!!File collectionFile = new File(((String) getConfigParameterValue(PARAM_INPUT)).trim());
+    File collectionFile = new File("/host/Users/Kenton/11791/workspace/hw1-kwmurray/src/main/resources/data/sample.in");
     mLanguage  = (String) getConfigParameterValue(PARAM_LANGUAGE);
     mCurrentIndex = 0;
     mNumberOfLines = 0;
@@ -76,7 +81,7 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
 
     // if input file does not exist, throw exception
     if (!collectionFile.exists()) {
-      throw new ResourceInitializationException(ResourceConfigurationException.MANDATORY_VALUE_MISSING,
+        throw new ResourceInitializationException(ResourceConfigurationException.MANDATORY_VALUE_MISSING,
               new Object[] { PARAM_INPUT, this.getMetaData().getName()});
     }
     
@@ -122,27 +127,44 @@ public class SingleFileCollectionReader extends CollectionReader_ImplBase {
 
     String doc;
     
-    // I believe this should remove everything in the order we added
+    // Removes everything in the order we added
     doc = docsArray.remove(0);
     jcas.setDocumentText(doc); //put Document in CAS
-    
     
     // set language if it was explicitly specified as a configuration parameter
     if (mLanguage != null) {
       ((DocumentAnnotation) jcas.getDocumentAnnotationFs()).setLanguage(mLanguage);
     }
+    
+    String[] docArray = doc.split("\\s+");
+    String headDoc = docArray[0];
+    String tailDoc = "";
+    if(docArray.length >= 2)
+    {
+      tailDoc = docArray[1];
+      for(int i = 2; i < docArray.length; i++)
+      {
+        tailDoc = tailDoc + " " + docArray[i];
+      }
+    }
+    //System.out.println(tailDoc);
 
+    IndividualSentenceIdentifier isi = new IndividualSentenceIdentifier(jcas);
+    isi.setSentenceID(headDoc);
+    isi.setSentenceString(tailDoc);
+    
+    
     // Also store location of source document in CAS. This information is critical
     // if CAS Consumers will need to know where the original document contents are located.
     // For example, the Semantic Search CAS Indexer writes this information into the
     // search index that it creates, which allows applications that use the search index to
     // locate the documents that satisfy their semantic queries.
-    SourceDocumentInformation srcDocInfo = new SourceDocumentInformation(jcas);
+    //SourceDocumentInformation srcDocInfo = new SourceDocumentInformation(jcas);
     //srcDocInfo.setUri(file.getAbsoluteFile().toURL().toString());
-    srcDocInfo.setOffsetInSource(mCurrentIndex);//0);
-    srcDocInfo.setDocumentSize((int) doc.length());
+    //srcDocInfo.setOffsetInSource(mCurrentIndex);//0);
+    //srcDocInfo.setDocumentSize((int) doc.length());
     //srcDocInfo.setLastSegment(mCurrentIndex == mFiles.size());
-    srcDocInfo.addToIndexes();
+    //srcDocInfo.addToIndexes();
     
     // increment the index of file we are reading
     mCurrentIndex++;

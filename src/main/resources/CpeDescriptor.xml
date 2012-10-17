@@ -3,13 +3,14 @@
     <collectionReader>
         <collectionIterator>
             <descriptor>
-                <import location="../../workspace/hw1-kwmurray/descriptors/collection_reader/collectionReaderDescriptor.xml"/>
+                <!-- <import location="../../workspace/hw1-kwmurray/descriptors/collection_reader/collectionReaderDescriptor.xml"/>   -->
+                <import location="../../../descriptors/collection_reader/collectionReaderDescriptor.xml"/>
             </descriptor>
             <configurationParameterSettings>
                 <nameValuePair>
-                    <name>InputDirectory</name>
+                    <name>InputFile</name>
                     <value>
-                        <string>/host/Users/Kenton/11791/apache-uima/examples/data</string>
+                        <string>sample.in</string>
                     </value>
                 </nameValuePair>
                 <nameValuePair>
@@ -22,7 +23,7 @@
         </collectionIterator>
     </collectionReader>
     <casProcessors casPoolSize="3" processingUnitThreadCount="1">
-        <casProcessor deployment="integrated" name="Aggregate TAE - Name Recognizer and Person Title Annotator">
+        <!-- <casProcessor deployment="integrated" name="Aggregate TAE - Name Recognizer and Person Title Annotator">
             <descriptor>
                 <import location="analysis_engine/NamesAndPersonTitles_TAE.xml"/>
             </descriptor>
@@ -33,10 +34,12 @@
                 <timeout max="100000" default="-1"/>
             </errorHandling>
             <checkpoint batch="10000" time="1000ms"/>
-        </casProcessor>
-        <casProcessor deployment="integrated" name="Xmi Writer CAS Consumer">
+        </casProcessor> -->
+        <!-- <casProcessor deployment="integrated" name="Xmi Writer CAS Consumer"> -->
+        <casProcessor deployment="integrated" name="Genes Consumed">
             <descriptor>
-                <import location="cas_consumer/XmiWriterCasConsumer.xml"/>
+                <import location="consumers/GeneseConsumed.xml" />
+                <!-- <import location="cas_consumer/XmiWriterCasConsumer.xml"/> -->
             </descriptor>
             <deploymentParameters/>
             <errorHandling>
@@ -47,7 +50,7 @@
             <checkpoint batch="10000" time="1000ms"/>
             <configurationParameterSettings>
                 <nameValuePair>
-                    <name>OutputDirectory</name>
+                    <name>OutputFile</name>
                     <value>
                         <string>/host/Users/Kenton/11791/apache-uima/examples/descriptors/output</string>
                     </value>

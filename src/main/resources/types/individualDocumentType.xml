@@ -5,17 +5,22 @@
   <version>1.0</version>
   <vendor/>
   <types>
-		<typeDescription>
-			<name>SentenceIdentifier</name>
-			<description>Unique Identifier for each sentence in the input file</description>
-			<supertypeName>uima.tcas.Annotation</supertypeName>
-			<features>
-				<featureDescription>
-					<name>SentenceID</name>
-					<description></description>
-					<rangeTypeName>uima.cas.String</rangeTypeName>
-				</featureDescription>
-			</features>
-		</typeDescription>
-	</types>
+    <typeDescription>
+      <name>types.IndividualSentenceIdentifier</name>
+      <description>Unique Identifier for each sentence in the input file</description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+      <features>
+        <featureDescription>
+          <name>SentenceID</name>
+          <description/>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>SentenceString</name>
+          <description/>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
 </typeSystemDescription>

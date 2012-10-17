@@ -27,7 +27,7 @@
       <nameValuePair>
         <name>InputFile</name>
         <value>
-          <string>src/main/resources/data/sample.in</string>
+          <string>./resources/data/sample.in</string>
         </value>
       </nameValuePair>
       <nameValuePair>
