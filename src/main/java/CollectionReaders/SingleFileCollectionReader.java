@@ -12,7 +12,7 @@ import org.apache.uima.cas.CAS;
 import org.apache.uima.cas.CASException;
 import org.apache.uima.collection.CollectionException;
 import org.apache.uima.collection.CollectionReader_ImplBase;
-import org.apache.uima.examples.SourceDocumentInformation;
+//import org.apache.uima.examples.SourceDocumentInformation;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.DocumentAnnotation;
 import org.apache.uima.resource.ResourceConfigurationException;
@@ -43,12 +43,6 @@ public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionRe
   public static final String PARAM_INPUT = "InputFile";//"sample.in";//"hw1.in";
 
   /**
-   * Name of configuration parameter that contains the character encoding used by the input files.
-   * If not specified, the default system encoding will be used.
-   */
-  //public static final String PARAM_ENCODING = "Encoding";
-
-  /**
    * Name of optional configuration parameter that contains the language of the documents in the
    * input directory. If specified this information will be added to the CAS.
    */
@@ -71,8 +65,8 @@ public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionRe
    * @see org.apache.uima.collection.CollectionReader_ImplBase#initialize()
    */
   public void initialize() throws ResourceInitializationException {
-    //TODO: FIX THIS!!File collectionFile = new File(((String) getConfigParameterValue(PARAM_INPUT)).trim());
-    File collectionFile = new File("/host/Users/Kenton/11791/workspace/hw1-kwmurray/src/main/resources/data/sample.in");
+    File collectionFile = new File(((String) getConfigParameterValue(PARAM_INPUT)).trim());
+//    File collectionFile = new File("/host/Users/Kenton/11791/workspace/hw1-kwmurray/src/main/resources/data/sample.in");
     mLanguage  = (String) getConfigParameterValue(PARAM_LANGUAGE);
     mCurrentIndex = 0;
     mNumberOfLines = 0;
@@ -99,7 +93,7 @@ public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionRe
       // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
+      // TODO Auto-generated catch blockBufferedReader in = new BufferedReader(new FileReader( "/Users/andrian/input.txt"));
       e.printStackTrace();
     }
     

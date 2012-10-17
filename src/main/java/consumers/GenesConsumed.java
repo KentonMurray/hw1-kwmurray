@@ -14,6 +14,7 @@ import org.apache.uima.resource.ResourceProcessException;
 import org.apache.uima.util.XMLSerializer;
 import org.xml.sax.SAXException;
 
+import types.IndividualGeneIdentifier;
 import types.IndividualSentenceIdentifier;
 
 public class GenesConsumed extends CasConsumer_ImplBase {
@@ -36,12 +37,23 @@ public class GenesConsumed extends CasConsumer_ImplBase {
     //System.out.println("Kenton");
     //System.out.println(jcas.getCas());
     
+    //System.out.println(jcas.getDocumentText());
+    
     FSIterator fit = jcas.getAnnotationIndex(IndividualSentenceIdentifier.type).iterator();
+    //System.out.println(fit.toString());
+    
     if (fit.hasNext())
     {
       System.out.println("Made it here");
       IndividualSentenceIdentifier indivToken = (IndividualSentenceIdentifier) fit.next();
       System.out.println(indivToken.getSentenceID());
+    }
+    
+    FSIterator git = jcas.getAnnotationIndex(IndividualGeneIdentifier.type).iterator();
+    if (git.hasNext())
+    {
+      IndividualGeneIdentifier indivGene = (IndividualGeneIdentifier) git.next();
+      String gID = indivGene.getSentenceID();
     }
     
     try {
