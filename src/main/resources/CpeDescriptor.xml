@@ -8,7 +8,7 @@
         </collectionIterator>
     </collectionReader>
     <casProcessors casPoolSize="3" processingUnitThreadCount="1">
-        <casProcessor deployment="integrated" name="Basic Analysis Engine">
+        <!-- <casProcessor deployment="integrated" name="Basic Analysis Engine">
             <descriptor>
                 <import location="ae/BasicAnalysisEngine.xml"/>
             </descriptor>
@@ -19,7 +19,7 @@
                 <timeout max="100000" default="-1"/>
             </errorHandling>
             <checkpoint batch="10000" time="1000ms"/>
-        </casProcessor>
+        </casProcessor>-->
         <casProcessor deployment="integrated" name="HMM NER">
             <descriptor>
                 <import location="ae/HMMNER.xml"/>

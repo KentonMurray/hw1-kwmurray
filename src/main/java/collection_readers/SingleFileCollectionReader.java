@@ -66,7 +66,6 @@ public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionRe
    */
   public void initialize() throws ResourceInitializationException {
     File collectionFile = new File(((String) getConfigParameterValue(PARAM_INPUT)).trim());
-//    File collectionFile = new File("/host/Users/Kenton/11791/workspace/hw1-kwmurray/src/main/resources/data/sample.in");
     mLanguage  = (String) getConfigParameterValue(PARAM_LANGUAGE);
     mCurrentIndex = 0;
     mNumberOfLines = 0;
@@ -90,10 +89,8 @@ public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionRe
       }
       fReader.close();
     } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (IOException e) {
-      // TODO Auto-generated catch blockBufferedReader in = new BufferedReader(new FileReader( "/Users/andrian/input.txt"));
       e.printStackTrace();
     }
     

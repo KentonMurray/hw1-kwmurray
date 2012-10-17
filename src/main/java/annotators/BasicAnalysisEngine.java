@@ -112,6 +112,8 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
           geneAnnot.addToIndexes();
           geneAnnot.setSentenceID(sid);
           geneAnnot.setGeneString(one);
+          geneAnnot.setGeneStart(pos);
+          geneAnnot.setGeneEnd(pos + token.length());
         }
         else if (commonGenes.containsKey(two))
         {
@@ -119,6 +121,8 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
           geneAnnot.addToIndexes();
           geneAnnot.setSentenceID(sid);
           geneAnnot.setGeneString(two);
+          geneAnnot.setGeneStart(pos);
+          geneAnnot.setGeneEnd(pos + token.length());
         }
         else if (commonGenes.containsKey(three))
         {
@@ -126,6 +130,8 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
           geneAnnot.addToIndexes();
           geneAnnot.setSentenceID(sid);
           geneAnnot.setGeneString(three);
+          geneAnnot.setGeneStart(pos);
+          geneAnnot.setGeneEnd(pos + token.length());
         }
         else if (commonGenes.containsKey(four))
         {
@@ -133,6 +139,8 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
           geneAnnot.addToIndexes();
           geneAnnot.setSentenceID(sid);
           geneAnnot.setGeneString(four);
+          geneAnnot.setGeneStart(pos);
+          geneAnnot.setGeneEnd(pos + token.length());
         }
         else if (commonGenes.containsKey(five))
         {
@@ -140,6 +148,8 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
           geneAnnot.addToIndexes();
           geneAnnot.setSentenceID(sid);
           geneAnnot.setGeneString(five);
+          geneAnnot.setGeneStart(pos);
+          geneAnnot.setGeneEnd(pos + token.length());
         }
         else if (commonGenes.containsKey(six))
         {
@@ -147,16 +157,9 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
           geneAnnot.addToIndexes();
           geneAnnot.setSentenceID(sid);
           geneAnnot.setGeneString(six);
+          geneAnnot.setGeneStart(pos);
+          geneAnnot.setGeneEnd(pos + token.length());
         }
-        // create annotation
-        //IndividualSentenceIdentifier annot = new IndividualSentenceIdentifier(aJCas, pos, pos + token.length());
-        //UimaAcronym annot = new UimaAcronym(aJCas, pos, pos + token.length(), expandedForm);
-      //  geneAnnot.addToIndexes();
-      //  geneAnnot.setSentenceID(sid);
-        //annot.addToIndexes();
-        //annot.setSentenceID(sid);
-        
-        
         
         //System.out.println(expandedForm);
       }

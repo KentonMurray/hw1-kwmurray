@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** Unique Identifier for each gene found
- * Updated by JCasGen Wed Oct 17 12:02:43 EDT 2012
+ * Updated by JCasGen Wed Oct 17 19:27:40 EDT 2012
  * XML source: /host/Users/Kenton/11791/workspace/hw1-kwmurray/src/main/resources/types/individualGeneType.xml
  * @generated */
 public class IndividualGeneIdentifier extends Annotation {
@@ -96,6 +96,42 @@ public class IndividualGeneIdentifier extends Annotation {
     if (IndividualGeneIdentifier_Type.featOkTst && ((IndividualGeneIdentifier_Type)jcasType).casFeat_GeneString == null)
       jcasType.jcas.throwFeatMissing("GeneString", "types.IndividualGeneIdentifier");
     jcasType.ll_cas.ll_setStringValue(addr, ((IndividualGeneIdentifier_Type)jcasType).casFeatCode_GeneString, v);}    
+   
+    
+  //*--------------*
+  //* Feature: GeneStart
+
+  /** getter for GeneStart - gets 
+   * @generated */
+  public int getGeneStart() {
+    if (IndividualGeneIdentifier_Type.featOkTst && ((IndividualGeneIdentifier_Type)jcasType).casFeat_GeneStart == null)
+      jcasType.jcas.throwFeatMissing("GeneStart", "types.IndividualGeneIdentifier");
+    return jcasType.ll_cas.ll_getIntValue(addr, ((IndividualGeneIdentifier_Type)jcasType).casFeatCode_GeneStart);}
+    
+  /** setter for GeneStart - sets  
+   * @generated */
+  public void setGeneStart(int v) {
+    if (IndividualGeneIdentifier_Type.featOkTst && ((IndividualGeneIdentifier_Type)jcasType).casFeat_GeneStart == null)
+      jcasType.jcas.throwFeatMissing("GeneStart", "types.IndividualGeneIdentifier");
+    jcasType.ll_cas.ll_setIntValue(addr, ((IndividualGeneIdentifier_Type)jcasType).casFeatCode_GeneStart, v);}    
+   
+    
+  //*--------------*
+  //* Feature: GeneEnd
+
+  /** getter for GeneEnd - gets 
+   * @generated */
+  public int getGeneEnd() {
+    if (IndividualGeneIdentifier_Type.featOkTst && ((IndividualGeneIdentifier_Type)jcasType).casFeat_GeneEnd == null)
+      jcasType.jcas.throwFeatMissing("GeneEnd", "types.IndividualGeneIdentifier");
+    return jcasType.ll_cas.ll_getIntValue(addr, ((IndividualGeneIdentifier_Type)jcasType).casFeatCode_GeneEnd);}
+    
+  /** setter for GeneEnd - sets  
+   * @generated */
+  public void setGeneEnd(int v) {
+    if (IndividualGeneIdentifier_Type.featOkTst && ((IndividualGeneIdentifier_Type)jcasType).casFeat_GeneEnd == null)
+      jcasType.jcas.throwFeatMissing("GeneEnd", "types.IndividualGeneIdentifier");
+    jcasType.ll_cas.ll_setIntValue(addr, ((IndividualGeneIdentifier_Type)jcasType).casFeatCode_GeneEnd, v);}    
   }
 
     
