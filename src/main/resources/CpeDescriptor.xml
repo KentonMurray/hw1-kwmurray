@@ -61,14 +61,14 @@
                 <timeout max="100000" default="-1"/>
             </errorHandling>
             <checkpoint batch="10000" time="1000ms"/>
-            <configurationParameterSettings>
+            <!-- <configurationParameterSettings>
                 <nameValuePair>
                     <name>OutputFile</name>
                     <value>
                         <string>/host/Users/Kenton/11791/apache-uima/examples/descriptors/output</string>
                     </value>
                 </nameValuePair>
-            </configurationParameterSettings>
+            </configurationParameterSettings> -->
         </casProcessor>
     </casProcessors>
     <cpeConfig>

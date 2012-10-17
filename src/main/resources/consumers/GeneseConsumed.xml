@@ -20,7 +20,7 @@
       <nameValuePair>
         <name>OutputFile</name>
         <value>
-          <string>temp-uima-output/xcaswriter</string>
+          <string>hw1-kwmurray.out</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

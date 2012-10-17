@@ -10,32 +10,8 @@ import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.jcas.JCas;
-//import org.apache.uima.resource.ResourceAccessException;
 import org.apache.uima.resource.ResourceInitializationException;
-//import org.apache.uima.tutorial.ex6.StringMapResource;
-//import org.apache.uima.tutorial.UimaAcronym;
-import org.apache.uima.resource.ResourceConfigurationException;
-import org.apache.uima.resource.ResourceInitializationException;
-import org.apache.uima.cas.CAS;
-import org.apache.uima.cas.CASException;
-import org.apache.uima.collection.CollectionException;
-import org.apache.uima.collection.CollectionReader_ImplBase;
-//import org.apache.uima.examples.SourceDocumentInformation;
-import org.apache.uima.jcas.JCas;
-import org.apache.uima.jcas.tcas.DocumentAnnotation;
-import org.apache.uima.util.Progress;
-import org.apache.uima.util.ProgressImpl;
 
-import org.apache.uima.collection.*;
-import org.apache.uima.collection.CollectionReader;
-import org.apache.uima.collection.CollectionReaderDescription;
-import org.apache.uima.resource.*;
-import org.apache.uima.*;
-import org.apache.uima.resource.ConfigurationManager;
-import org.apache.uima.resource.ConfigurableResource;
-import org.apache.uima.resource.Resource;
-
-import types.IndividualSentenceIdentifier;
 import types.IndividualGeneIdentifier;
 
 public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
@@ -49,17 +25,21 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
     
     commonGenes = new HashMap<String, Integer>();
     
-    File collectionFile = new File(((String) getConfigParameterValue(PARAM_GENE)).trim());
+    File collectionFile = new File(((String) getContext().getConfigParameterValue(PARAM_GENE)).trim());
     
     try
     {
-      BufferedReader in = new BufferedReader(new FileReader("/Users/andrian/input.txt"));
+      BufferedReader in = new BufferedReader(new FileReader(collectionFile));//new FileReader("/host/Users/Kenton/11791/workspace/hw1-kwmurray/src/main/resources/data/GoldStandardGenes.in"));
       // string buffer for file reading   
       String str;
 
       // reading line by line from file    
       while ((str = in.readLine()) != null)
       {
+        //str.replaceAll();
+        //" \t\n\r.<.>/?\";:[{]}\\|=+()!", true);
+        
+        
         if (!(commonGenes.containsKey(str)))
         { 
           commonGenes.put(str, 1);
@@ -91,27 +71,95 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
     
     //Go through document word by word
     int pos = 0;
-    StringTokenizer tokenizer = new StringTokenizer(text, " \t\n\r.<.>/?\";:[{]}\\|=+()!", true);
+    StringTokenizer tokenizer = new StringTokenizer(text, /*"\\s+", true); //*/" \t\n\r.<.>/?\";:[{]}\\|=+()!", true);
     //Get the string ID as the first one
     String sid = "";
     if(tokenizer.hasMoreTokens())
     {
       sid = tokenizer.nextToken();
     }
+    
+    String nGram1 = "";
+    String nGram2 = "";
+    String nGram3 = "";
+    String nGram4 = "";
+    String nGram5 = "";
+    String nGram6 = "";
+    
     while (tokenizer.hasMoreTokens()) {
       String token = tokenizer.nextToken();
       // look up token in map to see if it is an acronym
       //String expandedForm = mMap.get(token);
       String expandedForm = token;
       if (expandedForm != null) {
+        
+        //Move values in nGrams
+        nGram1 = nGram2;
+        nGram2 = nGram3;
+        nGram3 = nGram4;
+        nGram4 = nGram5;
+        nGram5 = nGram6;
+        nGram6 = expandedForm;
+        
+        String one = nGram1;
+        String two = one + " " + nGram2;
+        String three = two + " " + nGram3;
+        String four = three + " " + nGram4;
+        String five = four + " " + nGram5;
+        String six = five + " " + nGram6;
+        
+        if (commonGenes.containsKey(one))
+        {
+          IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, pos, pos + token.length());
+          geneAnnot.addToIndexes();
+          geneAnnot.setSentenceID(sid);
+          geneAnnot.setGeneString(one);
+        }
+        else if (commonGenes.containsKey(two))
+        {
+          IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, pos, pos + token.length());
+          geneAnnot.addToIndexes();
+          geneAnnot.setSentenceID(sid);
+          geneAnnot.setGeneString(two);
+        }
+        else if (commonGenes.containsKey(three))
+        {
+          IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, pos, pos + token.length());
+          geneAnnot.addToIndexes();
+          geneAnnot.setSentenceID(sid);
+          geneAnnot.setGeneString(three);
+        }
+        else if (commonGenes.containsKey(four))
+        {
+          IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, pos, pos + token.length());
+          geneAnnot.addToIndexes();
+          geneAnnot.setSentenceID(sid);
+          geneAnnot.setGeneString(four);
+        }
+        else if (commonGenes.containsKey(five))
+        {
+          IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, pos, pos + token.length());
+          geneAnnot.addToIndexes();
+          geneAnnot.setSentenceID(sid);
+          geneAnnot.setGeneString(five);
+        }
+        else if (commonGenes.containsKey(six))
+        {
+          IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, pos, pos + token.length());
+          geneAnnot.addToIndexes();
+          geneAnnot.setSentenceID(sid);
+          geneAnnot.setGeneString(six);
+        }
         // create annotation
-        IndividualSentenceIdentifier annot = new IndividualSentenceIdentifier(aJCas, pos, pos + token.length());
-        IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, pos, pos + token.length());
+        //IndividualSentenceIdentifier annot = new IndividualSentenceIdentifier(aJCas, pos, pos + token.length());
         //UimaAcronym annot = new UimaAcronym(aJCas, pos, pos + token.length(), expandedForm);
-        geneAnnot.addToIndexes();
-        geneAnnot.setSentenceID(sid);
-        annot.addToIndexes();
-        annot.setSentenceID(sid);
+      //  geneAnnot.addToIndexes();
+      //  geneAnnot.setSentenceID(sid);
+        //annot.addToIndexes();
+        //annot.setSentenceID(sid);
+        
+        
+        
         //System.out.println(expandedForm);
       }
       // incrememnt pos and go to next token
