@@ -10,7 +10,7 @@
     <vendor>The Apache Software Foundation</vendor>
     <configurationParameters>
       <configurationParameter>
-        <name>GenesFile</name>
+        <name>LingpipeModel</name>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
@@ -18,9 +18,9 @@
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
-        <name>GenesFile</name>
+        <name>LingpipeModel</name>
         <value>
-          <string>src/main/resources/data/GoldStandardGenes.in</string>
+          <string>src/main/resources/data/ne-en-bio-genetag.HmmChunker</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

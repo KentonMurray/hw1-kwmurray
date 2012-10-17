@@ -49,6 +49,18 @@
             </errorHandling>
             <checkpoint batch="10000" time="1000ms"/>
         </casProcessor>
+        <casProcessor deployment="integrated" name="HMM NER">
+            <descriptor>
+                <import location="ae/HMMNER.xml"/>
+            </descriptor>
+            <deploymentParameters/>
+            <errorHandling>
+                <errorRateThreshold action="terminate" value="0/1000"/>
+                <maxConsecutiveRestarts action="terminate" value="30"/>
+                <timeout max="100000" default="-1"/>
+            </errorHandling>
+            <checkpoint batch="10000" time="1000ms"/>
+        </casProcessor>
         <casProcessor deployment="integrated" name="Genes Consumed">
             <descriptor>
                 <import location="consumers/GeneseConsumed.xml" />

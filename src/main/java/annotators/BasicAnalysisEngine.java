@@ -65,9 +65,7 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
   
   @Override
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
-    // TODO Auto-generated method stub
     String text = aJCas.getDocumentText();
-    //System.out.println("Testing: " + text);
     
     //Go through document word by word
     int pos = 0;
