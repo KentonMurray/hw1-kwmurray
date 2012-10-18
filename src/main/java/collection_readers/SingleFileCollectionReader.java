@@ -24,15 +24,10 @@ import org.apache.uima.util.ProgressImpl;
 import types.IndividualSentenceIdentifier;
 
 /**
- * A simple collection reader that reads a single document from a command line parameter. It can be
- * configured with the following parameters:
- * <ul>
- * <li><code>InputDirectory</code> - path to directory containing files</li>
- * <li><code>Encoding</code> (optional) - character encoding of the input files</li>
- * <li><code>Language</code> (optional) - language of the input documents</li>
- * </ul>
- * @param <SentenceIdentifier>
- * 
+ * A simple collection reader that reads a single file.
+ * Each line is then separately treated as a "document" from an NLP perspective
+ * and the original file represents a corpus.
+ * One CAS is created from each Document
  * 
  */
 public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionReader_ImplBase {
@@ -40,7 +35,7 @@ public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionRe
    * Name of configuration parameter that must be set to the path of a directory containing input
    * files.
    */
-  public static final String PARAM_INPUT = "InputFile";//"sample.in";//"hw1.in";
+  public static final String PARAM_INPUT = "InputFile";
 
   /**
    * Name of optional configuration parameter that contains the language of the documents in the
@@ -51,12 +46,8 @@ public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionRe
   
   private ArrayList<String> docsArray;
 
-  //private String mEncoding;
-
   private String mLanguage;
   
-  //private Boolean mRecursive;
-
   private int mCurrentIndex;
   
   private int mNumberOfLines;
@@ -138,26 +129,11 @@ public class SingleFileCollectionReader<SentenceIdentifier> extends CollectionRe
         tailDoc = tailDoc + " " + docArray[i];
       }
     }
-    //System.out.println(tailDoc);
 
     IndividualSentenceIdentifier isi = new IndividualSentenceIdentifier(jcas);
     isi.setSentenceID(headDoc);
     isi.setSentenceString(tailDoc);
     
-    
-    // Also store location of source document in CAS. This information is critical
-    // if CAS Consumers will need to know where the original document contents are located.
-    // For example, the Semantic Search CAS Indexer writes this information into the
-    // search index that it creates, which allows applications that use the search index to
-    // locate the documents that satisfy their semantic queries.
-    //SourceDocumentInformation srcDocInfo = new SourceDocumentInformation(jcas);
-    //srcDocInfo.setUri(file.getAbsoluteFile().toURL().toString());
-    //srcDocInfo.setOffsetInSource(mCurrentIndex);//0);
-    //srcDocInfo.setDocumentSize((int) doc.length());
-    //srcDocInfo.setLastSegment(mCurrentIndex == mFiles.size());
-    //srcDocInfo.addToIndexes();
-    
-    // increment the index of file we are reading
     mCurrentIndex++;
     
   }

@@ -14,11 +14,22 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import types.IndividualGeneIdentifier;
 
+/**
+ * This is a very basic Analysis Engine that compares ngrams of length 1
+ * up to 6 and sees if it matches approximately 9,000 common names.
+ * The corpus is simply GENETAG and was obtained from:
+ * http://www.biomedcentral.com/1471-2105/6/S1/S3
+ * on 10/16/2012
+ *
+ */
 public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
   
   public static final String PARAM_GENE = "GenesFile";
   private HashMap<String, Integer> commonGenes;
   
+  /**
+   * Initialize method just creates a Hashmap of the common genes for comparison later
+   */
   public void initialize(UimaContext aContext) throws ResourceInitializationException {
     super.initialize(aContext);
     // Create a Hash of Common genes
@@ -29,15 +40,13 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
     
     try
     {
-      BufferedReader in = new BufferedReader(new FileReader(collectionFile));//new FileReader("/host/Users/Kenton/11791/workspace/hw1-kwmurray/src/main/resources/data/GoldStandardGenes.in"));
+      BufferedReader in = new BufferedReader(new FileReader(collectionFile));
       // string buffer for file reading   
       String str;
 
       // reading line by line from file    
       while ((str = in.readLine()) != null)
       {
-        //str.replaceAll();
-        //" \t\n\r.<.>/?\";:[{]}\\|=+()!", true);
         
         
         if (!(commonGenes.containsKey(str)))
@@ -54,13 +63,6 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
     }
     
     
-    
-    
-    /*try {
-      mMap = (StringMapResource) getContext().getResourceObject("AcronymTable");
-    } catch (ResourceAccessException e) {
-      throw new ResourceInitializationException(e);
-    }*/
   }
   
   @Override
@@ -69,7 +71,7 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
     
     //Go through document word by word
     int pos = 0;
-    StringTokenizer tokenizer = new StringTokenizer(text, /*"\\s+", true); //*/" \t\n\r.<.>/?\";:[{]}\\|=+()!", true);
+    StringTokenizer tokenizer = new StringTokenizer(text, " \t\n\r.<.>/?\";:[{]}\\|=+()!", true);
     //Get the string ID as the first one
     String sid = "";
     if(tokenizer.hasMoreTokens())
@@ -86,8 +88,6 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
     
     while (tokenizer.hasMoreTokens()) {
       String token = tokenizer.nextToken();
-      // look up token in map to see if it is an acronym
-      //String expandedForm = mMap.get(token);
       String expandedForm = token;
       if (expandedForm != null) {
         
@@ -161,7 +161,6 @@ public class BasicAnalysisEngine extends JCasAnnotator_ImplBase {
           geneAnnot.setGeneEnd(pos + token.length());
         }
         
-        //System.out.println(expandedForm);
       }
       // incrememnt pos and go to next token
       pos += token.length();

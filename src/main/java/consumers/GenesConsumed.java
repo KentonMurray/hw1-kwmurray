@@ -15,6 +15,11 @@ import org.apache.uima.resource.ResourceProcessException;
 import types.IndividualGeneIdentifier;
 import types.IndividualSentenceIdentifier;
 
+/**
+ * Simple CAS Consumer. Writes to a file (given by a parameter).
+ * Iterates over all the CASes and prints out in given format.
+ * Everything should be stored in a CAS and a type, so no need to do anything but write
+ */
 public class GenesConsumed extends CasConsumer_ImplBase {
 
   /**
@@ -24,7 +29,7 @@ public class GenesConsumed extends CasConsumer_ImplBase {
 
   
   @Override
-  public void processCas(CAS aCAS/*arg0*/) throws ResourceProcessException {
+  public void processCas(CAS aCAS) throws ResourceProcessException {
     
     JCas jcas;
     try {
@@ -40,7 +45,7 @@ public class GenesConsumed extends CasConsumer_ImplBase {
     try {
 
       // Construct the BufferedWriter object
-      bufferedWriter = new BufferedWriter(new FileWriter(collectionFile));
+      bufferedWriter = new BufferedWriter(new FileWriter(collectionFile, true));
 
       
       FSIterator git = jcas.getAnnotationIndex(IndividualGeneIdentifier.type).iterator();
@@ -55,11 +60,6 @@ public class GenesConsumed extends CasConsumer_ImplBase {
         bufferedWriter.newLine();
         System.out.println("Kenton says this is a gene: " + theGene);
       }
-      
-      
-      // Start writing to the output stream
-      //bufferedWriter.write("Kenton");
-      //bufferedWriter.newLine();
 
     } catch (Exception e) {
       e.printStackTrace();

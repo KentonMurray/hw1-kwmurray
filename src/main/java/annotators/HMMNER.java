@@ -2,7 +2,6 @@ package annotators;
 
 import java.io.File;
 import java.io.IOException;
-//import java.util.StringTokenizer;
 
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -15,14 +14,20 @@ import com.aliasi.chunk.Chunker;
 import com.aliasi.chunk.Chunking;
 import com.aliasi.util.AbstractExternalizable;
 
+/**
+ * This class is an Analysis Engine that uses a simple HMM
+ * from LingPipe to do NER. It reads in a trained model
+ * and chunks the string for matches to Genes and Proteins.
+ * It counts spaces in it's counts, so we have to remove them.
+ *
+ */
 public class HMMNER extends JCasAnnotator_ImplBase {
 
   public static final String PARAM_LING = "LingpipeModel";
   
   @Override
   public void process(JCas aJCas) throws AnalysisEngineProcessException {
-    // TODO Auto-generated method stub
-
+    
     File modelFile = new File(((String) getContext().getConfigParameterValue(PARAM_LING)).trim());
     
     System.out.println("Reading chunker from file=" + modelFile);
@@ -32,61 +37,70 @@ public class HMMNER extends JCasAnnotator_ImplBase {
 
       String text = aJCas.getDocumentText();
 
-      
-      
       String[] docArray = text.split("\\s+");
       String headDoc = docArray[0];
       String tailDoc = "";
-      if(docArray.length >= 2)
+      int numSpaces = docArray.length;
+      int spaceArray[] = new int[numSpaces];
+      int positionSoFar = 0;
+      if(numSpaces >= 2)
       {
         tailDoc = docArray[1];
-        for(int i = 2; i < docArray.length; i++)
+        for(int i = 2; i < numSpaces; i++)
         {
-          tailDoc = tailDoc + " " + docArray[i];
+          tailDoc = tailDoc + " " + docArray[i]; //Make one string
+          spaceArray[i] = positionSoFar + (docArray[i].length()); //Location of Spaces
+          positionSoFar = spaceArray[i];
         }
       }
       
-      
-      
-      
-      // Go through document word by word
-      //int pos = 0;
- //     StringTokenizer tokenizer = new StringTokenizer(text, /* "\\s+", true);  */              " \t\n\r.<.>/?\";:[{]}\\|=+()!", true);
       // Get the string ID as the first one
       String sid = headDoc;
-//      if (tokenizer.hasMoreTokens()) {
-  //      sid = tokenizer.nextToken();
-    //  }
+      String expandedForm = tailDoc;  
+      if (expandedForm != null) {
 
-      //while (tokenizer.hasMoreTokens()) {
-        //String token = tokenizer.nextToken();
-        // look up token in map to see if it is an acronym
-        // String expandedForm = mMap.get(token);
-        String expandedForm = tailDoc; //text;  
-      //String expandedForm = token;
-        if (expandedForm != null) {
+        Chunking chunking = chunker.chunk(expandedForm);
 
-          Chunking chunking = chunker.chunk(expandedForm);
-          //System.out.println("Chunking=" + chunking);
-          
-          for(Chunk chunked : chunking.chunkSet()) {
-            int start = chunked.start();
-            int end = chunked.end();
-            String theGene = expandedForm.substring(start, end);
-            //System.out.println(theGene);
-            
-            IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, start, end);
-            geneAnnot.addToIndexes();
-            geneAnnot.setSentenceID(sid);
-            geneAnnot.setGeneString(theGene);
-            geneAnnot.setGeneStart(start);
-            geneAnnot.setGeneEnd(end);
-            
-            System.out.println(sid + "|" + start + " " + end + "|" + theGene);
-            
+        for (Chunk chunked : chunking.chunkSet()) {
+          int start = chunked.start();
+          int end = chunked.end();
+          String theGene = expandedForm.substring(start, end);
+
+
+          int subtractFromStart = 0;
+          int subtractFromEnd = 0;
+                    
+          //Remove Spaces from count
+          for(int i = 0; i < spaceArray.length; i++)
+          {
+            if(start < spaceArray[i])
+            {
+              subtractFromStart = i - 2;
+              break;
+            }
+          }
+          for(int i = 0; i < spaceArray.length; i++)
+          {
+            if(end < spaceArray[i])
+            {
+              subtractFromEnd = i - 2;
+              break;
+            }
           }
           
+          IndividualGeneIdentifier geneAnnot = new IndividualGeneIdentifier(aJCas, start, end);
+          geneAnnot.addToIndexes();
+          geneAnnot.setSentenceID(sid);
+          geneAnnot.setGeneString(theGene);
+          geneAnnot.setGeneStart(start - subtractFromStart);
+          geneAnnot.setGeneEnd(end - subtractFromEnd);
+
+          
+          System.out.println(sid + "|" + (start - subtractFromStart) + " " + (end - subtractFromEnd) + "|" + theGene);
+
         }
+
+      }
     } catch (IOException e) {
       e.printStackTrace();
     } catch (ClassNotFoundException e) {
