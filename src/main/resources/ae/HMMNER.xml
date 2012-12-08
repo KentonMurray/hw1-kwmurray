@@ -20,7 +20,7 @@
       <nameValuePair>
         <name>LingpipeModel</name>
         <value>
-          <string>src/main/resources/data/ne-en-bio-genetag.HmmChunker</string>
+          <string>data/ne-en-bio-genetag.HmmChunker</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
